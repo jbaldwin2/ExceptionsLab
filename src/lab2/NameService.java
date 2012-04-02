@@ -1,5 +1,5 @@
 package lab2;
-
+import javax.swing.JOptionPane;
 /**
  * This class provides various services relating to name manipulation.
  * No output should be performed here.
@@ -19,8 +19,31 @@ public class NameService {
      * @return the last name
      */
     public String extractLastName(String fullName) {
-        String[] nameParts = fullName.split(" ");
-        return nameParts[LAST_NAME_IDX];
+       String lastName = "Unknown";
+        try {
+
+            String[] nameParts = fullName.split(" ");
+
+            int arrayLength = nameParts.length;
+
+            if (arrayLength != 2) {
+                // create an exception
+                throw new IllegalArgumentException();
+            }
+            
+            lastName = nameParts[LAST_NAME_IDX];
+
+        } catch (NullPointerException iae) {
+            // Cancel means quit so lets do it..
+            System.exit(0);
+
+            
+        } catch (RuntimeException iae) {
+            JOptionPane.showMessageDialog(null, "Sorry, only first name and "
+                    + "last name are required.  Please try again.");
+        }
+
+        return lastName;
     }
     
     /**
@@ -31,9 +54,33 @@ public class NameService {
      * @return the first name
      */
     public String extractFirstName(String fullName) {
-        String[] nameParts = fullName.split(" ");
-        return nameParts[FIRST_NAME_IDX];
+        String firstName = "Unknown";
+        try {
+
+            String[] nameParts = fullName.split(" ");
+
+            int arrayLength = nameParts.length;
+
+            if (arrayLength != 2) {
+                // create an exception
+                throw new IllegalArgumentException();
+            }
+            
+            firstName = nameParts[FIRST_NAME_IDX];
+
+        } catch (NullPointerException iae) {
+            // Cancel means quit so lets do it..
+            System.exit(0);
+
+            
+        } catch (RuntimeException iae) {
+            JOptionPane.showMessageDialog(null, "Sorry, only first name and "
+                    + "last name are required.  Please try again.");
+        }
+
+        return firstName;
     }
+    
 
     /**
      * Gets the length of a name.

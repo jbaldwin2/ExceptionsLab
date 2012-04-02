@@ -19,6 +19,7 @@ import java.util.Date;
  * @version 1.00
  */
 public class Employee {
+
     public static final int MAX_VACATION_DAYS = 28;
     private String firstName;
     private String lastName;
@@ -34,27 +35,35 @@ public class Employee {
         daysVacation = 0;
     }
 
-    public Employee(String firstName, String lastName, String ssn, Date hireDate, int daysVacation) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.ssn = ssn;
-        this.hireDate = hireDate;
-        this.daysVacation = daysVacation;
+    public Employee(String firstName, String lastName, String ssn,
+            Date hireDate, int daysVacation) {
+        setFirstName(firstName);
+        setLastName(lastName);
+        setSsn(ssn);
+        setHireDate(hireDate);
+        setDaysVacation(daysVacation);
     }
-    
-    public int getDaysVacation() {
+
+    public final int getDaysVacation() {
         return daysVacation;
     }
 
-    public void setDaysVacation(int daysVacation) {
+    public final void setDaysVacation(int daysVacation) {
+        if (daysVacation < 0 || daysVacation > MAX_VACATION_DAYS) {
+            throw new IllegalArgumentException("Vaction days out of range.");
+        }
         this.daysVacation = daysVacation;
     }
 
-    public String getFirstName() {
+    public final String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public final void setFirstName(String firstName) {
+        if (firstName == null || firstName.length() < 2) {
+            throw new IllegalArgumentException("First name must be at least" +
+                    "2 characters");
+        }
         this.firstName = firstName;
     }
 
@@ -62,15 +71,23 @@ public class Employee {
         return hireDate;
     }
 
-    public void setHireDate(Date hireDate) {
+    public final void setHireDate(Date hireDate) {
+        Date today = new Date();
+        if (hireDate == null || hireDate.after(today)) {
+            throw new IllegalArgumentException("Hire date is out of range");
+        }
         this.hireDate = hireDate;
     }
 
-    public String getLastName() {
+    public final String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public final void setLastName(String lastName) {
+        if (lastName == null || lastName.length() < 2) {
+            throw new IllegalArgumentException("Last name must be at least" +
+                    "2 characters");
+        }
         this.lastName = lastName;
     }
 
@@ -78,9 +95,11 @@ public class Employee {
         return ssn;
     }
 
-    public void setSsn(String ssn) {
+    public final void setSsn(String ssn) {
+        if (ssn == null || ssn.length() < 11) {
+            throw new IllegalArgumentException("SSN must be in format" +
+                    "xxx-xx-xxxx");
+        }
         this.ssn = ssn;
     }
-    
-    
 }
